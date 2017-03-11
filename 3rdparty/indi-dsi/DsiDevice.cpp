@@ -861,7 +861,7 @@ DSI::Device::downloadImage()
 	if (interlaced)
             even_data  = new unsigned char[even_size];
 
-        framebuffer  = new unsigned char[all_size];
+	framebuffer  = new unsigned char[all_size];
 
 	if (interlaced)
 	{
@@ -1075,6 +1075,14 @@ unsigned char *
 DSI::Device::ccdFramebuffer()
 {
     return(framebuffer);
+}
+
+void DSI::Device::freeFramebuffer()
+{
+    if (framebuffer) {
+        delete [] framebuffer;
+        framebuffer = 0;
+    }
 }
 
 void

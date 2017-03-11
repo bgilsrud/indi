@@ -218,6 +218,7 @@ namespace DSI {
         virtual int startExposure(int howlong, int gain = 0, int offs = 0x0ff);
         virtual int ExposureInProgress();
 	virtual unsigned char *ccdFramebuffer();
+	virtual void freeFramebuffer();
 
 	virtual void set1x1Binning();
 	virtual void set2x2Binning();

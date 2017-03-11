@@ -514,9 +514,8 @@ void DSICCD::grabImage()
    int width = PrimaryCCD.getSubW() / PrimaryCCD.getBinX();
    int height = PrimaryCCD.getSubH() / PrimaryCCD.getBinY();
 
-   try {
-       buf = (uint16_t *) dsi->ccdFramebuffer();
-   } catch (...) {
+   buf = (uint16_t *) dsi->ccdFramebuffer();
+   if (!buf) {
        DEBUG(INDI::Logger::DBG_SESSION,  "Image download failed!");
        return;
    }
@@ -527,7 +526,8 @@ void DSICCD::grabImage()
         }
    }
    
-   delete buf;
+   dsi->freeFramebuffer();
+   buf = 0;
 
    // Let INDI::CCD know we're done filling the image buffer
    ExposureComplete(&PrimaryCCD);
